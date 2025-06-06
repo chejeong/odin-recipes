@@ -1,23 +1,23 @@
 
 
-const btn = document.querySelector("#btn");
-btn.onclick = () => alert("Hello World 2");
+// const btn = document.querySelector("#btn");
+// btn.onclick = () => alert("Hello World 2");
 
 
-function handleClick(){
-    alert("Hello World, function");
-}
+// function handleClick(){
+//     alert("Hello World, function");
+// }
 
 
-const btn2 = document.querySelector("#btn3");
+// const btn2 = document.querySelector("#btn3");
 
-const btn4 = document.querySelector("#btn4");
+// const btn4 = document.querySelector("#btn4");
 
-btn4.addEventListener("click", handleClick);
+// btn4.addEventListener("click", handleClick);
 
-btn2.addEventListener("click", () => {
-    alert("Hello World 3");
-})
+// btn2.addEventListener("click", () => {
+//     alert("Hello World 3");
+// })
 
 // for (let i = 0; i < 10; i++){
 //     console.log(i);
@@ -61,53 +61,87 @@ btn2.addEventListener("click", () => {
 // container.appendChild(hBlue);
 // container.appendChild(mydiv);
 
-// let humanScore = 0;
-// let computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
+let humanThrow = "";
+
+const rockBtn = document.querySelector("#rock");
+const paperBtn = document.querySelector("#paper");
+const scissorsBtn = document.querySelector("#scissors");
+
+const humanScoreDiv = document.querySelector("#humanScoreID");
+const computerScoreDiv = document.querySelector("#computerScoreID");
+
+const humanThrowDiv = document.querySelector("#humanThrow");
+const computerThrowDiv = document.querySelector("#computerThrow");
 
 
-// while(true){
-//     let humanThrow = prompt("What do you want to throw");
+function throwRockPaperScissors(){
 
-//     if (humanThrow == null){
-//         break;
-//     }
+    let probability = Math.random();
+
+    if(probability > 0.66){
+        return "Scissors";
+    } else if(probability > 0.33){
+        return "Paper";
+    }
+    else{
+        return "Rock";
+    }
+
+}
+
+function playRound(humanThrow){
+
+    let computerThrow = throwRockPaperScissors();
+    
+    console.log("You Threw: ", humanThrow);
+    humanThrowDiv.textContent = `Human Threw : ${humanThrow}`;
+
+    console.log("Computer Threw: ",computerThrow);
+    computerThrowDiv.textContent = `Computer Threw : ${computerThrow}`;
+
+    if(humanThrow == computerThrow){
+        console.log("draw")
+    } else if((humanThrow == "Paper" && computerThrow == "Rock") || (humanThrow == "Scissors" && computerThrow == "Paper") || (humanThrow == "Rock" && computerThrow == "Scissors") ){
+        console.log("Human Wins");
+        humanScore += 1;
+    } else{
+        console.log("Computer Wins");
+        computerScore += 1;
+    }
+
+    console.log(`Human Score : ${humanScore}`);
+    console.log(`Computer Score : ${computerScore}`)
+    humanScoreDiv.textContent = `Human Score : ${humanScore}`;
+    computerScoreDiv.textContent = `Computer Score : ${computerScore}`;
+
+    if (humanScore == 5 || computerScore == 5){
+        alert(humanScore == 5 ? "You win!" : "Computer Wins!");
+        humanScore = 0;
+        computerScore = 0;
+        humanScoreDiv.textContent = `Human Score : ${humanScore}`;
+        computerScoreDiv.textContent = `Computer Score : ${computerScore}`;
+        computerThrowDiv.textContent = `Computer Threw : `;
+        humanThrowDiv.textContent = `Human Threw : `;
+    }
+}
 
 
-//     function throwRockPaperScissors(){
 
-//         let probability = Math.random();
+    //let humanThrow = prompt("What do you want to throw");
 
-//         if(probability > 0.66){
-//             return "Scissors";
-//         } else if(probability > 0.33){
-//             return "Paper";
-//         }
-//         else{
-//             return "Rock";
-//         }
+    //when user selects rock
+    rockBtn.addEventListener("click", () => playRound("Rock"));
 
-//     }
+    //when user selects paper
+    paperBtn.addEventListener("click", () => playRound("Paper"));
 
-//     let computerThrow = throwRockPaperScissors();
-
-//     console.log("You Threw: ", humanThrow);
-//     console.log("Computer Threw: ",computerThrow);
-
-//     if(humanThrow == computerThrow){
-//         console.log("draw")
-//     } else if((humanThrow == "Paper" && computerThrow == "Rock") || (humanThrow == "Scissors" && computerThrow == "Paper") || (humanThrow == "Rock" && computerThrow == "Scissors") ){
-//         console.log("Human Wins");
-//         humanScore += 1;
-//     } else{
-//         console.log("Computer Wins");
-//         computerScore += 1;
-//     }
-
-//     console.log("Human Score : ", humanScore);
-//     console.log("Computer Score : ", computerScore);
+    //when user selects scissors
+    scissorsBtn.addEventListener("click", () => playRound("Scissors"));
 
 
-// }
+
 
 
 
